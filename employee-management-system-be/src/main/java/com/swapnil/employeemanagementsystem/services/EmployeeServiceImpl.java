@@ -7,7 +7,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -28,5 +31,12 @@ public class EmployeeServiceImpl implements EmployeeService{
         EmployeeDTO employeeDTO = new EmployeeDTO();
         BeanUtils.copyProperties(employee.get(), employeeDTO);
         return employeeDTO;
+    }
+
+    @Override
+    public List<EmployeeDTO> findAllEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+        return employees.stream().map(employee -> new EmployeeDTO(employee.getId(),
+                employee.getFirstName(), employee.getLastName(), employee.getEmail())).collect(Collectors.toList());
     }
 }
