@@ -11,22 +11,21 @@ const AddEmployee = () => {
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setEmployee({...employee, [e.target.name]: value});
-  }
+    setEmployee({ ...employee, [e.target.name]: value });
+  };
 
   const saveEmployee = (e) => {
     e.preventDefault();
     EmployeeService.saveEmployee(employee)
-    .then((response) => {
+      .then((response) => {
         console.log(response);
-    }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
-    });
-  }
+      });
+  };
 
-  const clearData = () => {
-
-  }
+  const clearData = () => {};
 
   return (
     <div className="flex max-w-2xl mx-auto shadow border-b">
